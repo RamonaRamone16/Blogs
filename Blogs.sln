@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogs", "Blogs\Blogs.csproj", "{3283351A-15A8-4BFF-B196-D4F0A1B2D9F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogs.DAL", "Blogs.DAL\Blogs.DAL.csproj", "{D4E96EA6-6753-4658-B558-2D45D76FD187}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3283351A-15A8-4BFF-B196-D4F0A1B2D9F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3283351A-15A8-4BFF-B196-D4F0A1B2D9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3283351A-15A8-4BFF-B196-D4F0A1B2D9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3283351A-15A8-4BFF-B196-D4F0A1B2D9F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E96EA6-6753-4658-B558-2D45D76FD187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E96EA6-6753-4658-B558-2D45D76FD187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E96EA6-6753-4658-B558-2D45D76FD187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E96EA6-6753-4658-B558-2D45D76FD187}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE295A3A-2B10-4DF2-85FF-B1DD79A09E71}
+	EndGlobalSection
+EndGlobal
