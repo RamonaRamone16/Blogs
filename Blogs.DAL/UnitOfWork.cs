@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Blogs.DAL.Repositories;
+using Blogs.DAL.Repositories.Contracts;
+using System;
 
 namespace Blogs.DAL
 {
@@ -7,10 +9,15 @@ namespace Blogs.DAL
         private readonly ApplicationDbContext _context;
 
         private bool disposed;
+
+        public IRecordRepository Records { get; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
+            Records = new RecordRepository(context);
         }
+
         public void Dispose()
         {
             Dispose(true);
@@ -26,7 +33,6 @@ namespace Blogs.DAL
 
             disposed = true;
         }
-
         ~UnitOfWork()
         {
             Dispose(false);

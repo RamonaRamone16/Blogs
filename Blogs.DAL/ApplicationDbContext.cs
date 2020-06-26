@@ -9,16 +9,20 @@ namespace Blogs.DAL
     {
         public readonly IEntityConfigurationContainer _entityConfigurationContainer;
 
+        public DbSet<Record> Records { get; set; }
         public ApplicationDbContext(
             DbContextOptions options,
             IEntityConfigurationContainer entityConfigurationContainer) : base(options)
         {
             _entityConfigurationContainer = entityConfigurationContainer;
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity(_entityConfigurationContainer.RecordConfiguration.ProvideConfigurationAction());
         }
     }
 }
