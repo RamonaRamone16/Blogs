@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Blogs.Models.RecordModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Records</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.AuthorName
+                </td>
+                <td>
+                    @item.PublishedDate
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @item.ContentPreview...
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

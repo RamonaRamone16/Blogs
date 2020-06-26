@@ -9,6 +9,7 @@ using Blogs.DAL.EntitiesConfiguration;
 using Blogs.DAL;
 using AutoMapper;
 using Blogs.DAL.Entities;
+using Blogs.Services.Records;
 
 namespace Blogs
 {
@@ -41,6 +42,8 @@ namespace Blogs
                 sp => new ApplicationDbContextFactory(optionBuilder.Options, new EntityConfigurationContainer()));
 
             services.AddSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>();
+
+            services.AddSingleton<IRecordService, RecordService>();
 
             Mapper.Initialize(c => c.AddProfile(new MappingProfile()));
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)

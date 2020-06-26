@@ -4,7 +4,7 @@ using System;
 
 namespace Blogs.DAL
 {
-    public class UnitOfWork
+    public class UnitOfWork : IDisposable
     {
         private readonly ApplicationDbContext _context;
 

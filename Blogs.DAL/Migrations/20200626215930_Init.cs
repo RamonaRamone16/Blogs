@@ -154,6 +154,28 @@ namespace Blogs.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Records",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AuthorId = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    Content = table.Column<string>(maxLength: 2500, nullable: false),
+                    PublishedDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Records", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Records_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +214,16 @@ namespace Blogs.DAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Records_AuthorId",
+                table: "Records",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Records_Title",
+                table: "Records",
+                column: "Title");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
