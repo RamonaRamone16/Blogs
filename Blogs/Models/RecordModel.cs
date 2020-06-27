@@ -9,5 +9,6 @@
         public string PublishedDate { get; set; }
 
         public int AuthorAnswersCount { get; set; }
+        public int Likes { get; set; }
     }
 }

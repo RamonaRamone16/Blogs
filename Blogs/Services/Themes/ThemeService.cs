@@ -23,18 +23,18 @@ namespace Blogs.Services.Themes
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
-                IEnumerable<Theme> themes = unitOfWork.Themes.GetAllWithAuthorsAndRecords();
+                IEnumerable<Theme> themes = unitOfWork.Themes.GetAllWithAuthors();
                 themes.ToList().Reverse();
                 return Mapper.Map<List<ThemeModel>>(themes.ToList());
             }
         }
 
-        public void CreateTheme(ThemeCreateModel themeCreateModel, int id)
+        public void CreateTheme(ThemeCreateModel themeCreateModel, int userId)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
                 Theme theme = Mapper.Map<Theme>(themeCreateModel);
-                theme.AuthorId = id;
+                theme.AuthorId = userId;
                 unitOfWork.Themes.Create(theme);
             }
         }

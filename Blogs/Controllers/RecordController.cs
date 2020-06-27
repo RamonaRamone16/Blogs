@@ -66,5 +66,31 @@ namespace Blogs.Controllers
                 return StatusCode(500, e);
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Like(int? recordId, int? themeId)
+        {
+            try
+            {
+                if (!recordId.HasValue)
+                {
+                    ViewBag.BadRequestMessage = "Record Id is Null";
+                    return View("BadRequest");
+                }
+                if (!themeId.HasValue)
+                {
+                    ViewBag.BadRequestMessage = "Theme Id is Null";
+                    return View("BadRequest");
+                }
+
+                _recordService.LikeRecord(recordId.Value);
+                return RedirectToAction("Index", new { id = themeId });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
     }
 }

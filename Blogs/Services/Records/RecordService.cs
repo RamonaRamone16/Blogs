@@ -24,7 +24,6 @@ namespace Blogs.Services.Records
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
                 Theme theme = unitOfWork.Themes.GetWithAuthorsAndRecords(themeId).FirstOrDefault(t => t.Id == themeId);
-
                 model.RecordTheme = Mapper.Map<ThemeModel>(theme);
 
                 int pageSize = 3;
@@ -33,21 +32,30 @@ namespace Blogs.Services.Records
 
                 model.PagingModel = new PagingModel(pagesCount, pageSize, currentPage);
                 model.CurrentPage = currentPage;
-
                 theme.Records = theme.Records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 
                 model.Records = Mapper.Map<List<RecordModel>>(theme.Records.ToList());
             }
         }
 
-        public void CreateRecord(RecordCreateModel recordCreateModel, int id)
+        public void CreateRecord(RecordCreateModel recordCreateModel, int themeId)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
                 Record record = Mapper.Map<Record>(recordCreateModel);
-                record.AuthorId = id;
+                record.AuthorId = themeId;
                 record.ThemeId = recordCreateModel.RecordTheme.Id;
                 unitOfWork.Records.Create(record);
+            }
+        }
+
+        public void LikeRecord(int recordId)
+        {
+            using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+            {
+                Record record = unitOfWork.Records.GetById(recordId);
+                record.Likes++;
+                unitOfWork.Records.Update(record);
             }
         }
     }

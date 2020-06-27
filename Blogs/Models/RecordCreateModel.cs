@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Blogs.Models
 {
@@ -14,7 +11,6 @@ namespace Blogs.Models
 
         public ThemeModel RecordTheme { get; set; }
         public List<RecordModel> Records { get; set; }
-
 
         public int? CurrentPage { get; set; }
         public PagingModel PagingModel { get; set; }

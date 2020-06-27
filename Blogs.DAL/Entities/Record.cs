@@ -13,5 +13,6 @@ namespace Blogs.DAL.Entities
         public Theme Theme { get; set; }
         public string Content { get; set; }
         public DateTime PublishedDate { get; set; }
+        public int Likes { get; set; }
     }
 }

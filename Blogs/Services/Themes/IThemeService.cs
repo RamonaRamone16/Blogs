@@ -7,6 +7,6 @@ namespace Blogs.Services.Themes
     public interface IThemeService
     {
         List<ThemeModel> SearchThemes();
-        void CreateTheme(ThemeCreateModel theme, int id);
+        void CreateTheme(ThemeCreateModel theme, int userId);
     }
 }

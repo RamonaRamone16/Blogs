@@ -23,7 +23,6 @@ namespace Blogs
             CreateMap<Record, RecordModel>()
                 .ForMember(to => to.AuthorName, from => from.MapFrom(r => r.Author.UserName))
                 .ForMember(to => to.PublishedDate, from => from.MapFrom(r => r.PublishedDate.ToString("D")))
-                .ForMember(to => to.Content, from => from.MapFrom(r => r.Content))
                 .ForMember(to => to.AuthorAnswersCount, from => from.MapFrom(r => r.Author.Records.Count));
         }
         public void RecordCreateModelToRecordMap()
