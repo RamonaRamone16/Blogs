@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blogs.DAL.Entities;
 using Blogs.Models;
@@ -30,7 +29,6 @@ namespace Blogs.Controllers
             try
             {
                 model.Records = _recordService.SearchRecords(model);
-
 
                 return View(model);
             }

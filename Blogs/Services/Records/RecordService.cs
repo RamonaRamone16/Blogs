@@ -29,6 +29,14 @@ namespace Blogs.Services.Records
                     .ByDateFrom(model.DateFrom)
                     .ByDateTo(model.DateTo);
 
+                int pageSize = 3;
+                int currentPage = model.CurrentPage.HasValue ? model.CurrentPage.Value : 1;
+                int pagesCount = records.ToList().Count;
+
+                model.PagingModel = new PagingModel(pagesCount, pageSize, currentPage);
+                model.CurrentPage = currentPage;
+
+                records = records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 
                 return Mapper.Map<List<RecordModel>>(records.ToList());
             }

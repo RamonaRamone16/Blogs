@@ -19,5 +19,8 @@ namespace Blogs.Models
         [Display(Name = "Date To")]
         public DateTime? DateTo { get; set; }
         public List<RecordModel> Records { get; set; }
+
+        public int? CurrentPage { get; set; }
+        public PagingModel PagingModel { get; set; }
     }
 }
