@@ -23,7 +23,7 @@ namespace Blogs.Services.Records
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
-                Theme theme = unitOfWork.Themes.GetWithAuthorsAndRecords(themeId).FirstOrDefault(t => t.Id == themeId);
+                Theme theme = unitOfWork.Themes.GetAllWithAuthorsAndRecords().FirstOrDefault(t => t.Id == themeId);
                 model.RecordTheme = Mapper.Map<ThemeModel>(theme);
 
                 int pageSize = 3;
