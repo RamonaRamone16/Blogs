@@ -5,7 +5,7 @@ namespace Blogs.Services.Records
 {
     public interface IRecordService
     {
-        List<RecordModel> SearchRecords(RecordFilterModel model);
+        void SearchRecords(RecordCreateModel model, int themeId);
         void CreateRecord(RecordCreateModel record, int id);
     }
 }

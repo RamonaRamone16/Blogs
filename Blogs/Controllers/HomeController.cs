@@ -20,7 +20,7 @@ namespace Blogs.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Record");
+            return RedirectToAction("Index", "Theme");
         }
 
         public IActionResult Privacy()

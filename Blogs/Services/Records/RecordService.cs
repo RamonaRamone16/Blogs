@@ -19,26 +19,24 @@ namespace Blogs.Services.Records
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public List<RecordModel> SearchRecords(RecordFilterModel model)
+        public void SearchRecords(RecordCreateModel model, int themeId)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
-                IEnumerable<Record> records = unitOfWork.Records.GetAllWithAuthors()
-                    .ByAuthor(model.Author)
-                    .BySearchKey(model.SearchKey)
-                    .ByDateFrom(model.DateFrom)
-                    .ByDateTo(model.DateTo);
+                Theme theme = unitOfWork.Themes.GetWithAuthorsAndRecords(themeId).FirstOrDefault(t => t.Id == themeId);
+
+                model.RecordTheme = Mapper.Map<ThemeModel>(theme);
 
                 int pageSize = 3;
                 int currentPage = model.CurrentPage.HasValue ? model.CurrentPage.Value : 1;
-                int pagesCount = records.ToList().Count;
+                int pagesCount = theme.Records.ToList().Count;
 
                 model.PagingModel = new PagingModel(pagesCount, pageSize, currentPage);
                 model.CurrentPage = currentPage;
 
-                records = records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                theme.Records = theme.Records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 
-                return Mapper.Map<List<RecordModel>>(records.ToList());
+                model.Records = Mapper.Map<List<RecordModel>>(theme.Records.ToList());
             }
         }
 
@@ -48,6 +46,7 @@ namespace Blogs.Services.Records
             {
                 Record record = Mapper.Map<Record>(recordCreateModel);
                 record.AuthorId = id;
+                record.ThemeId = recordCreateModel.RecordTheme.Id;
                 unitOfWork.Records.Create(record);
             }
         }

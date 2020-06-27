@@ -1,4 +1,5 @@
 ﻿using Blogs.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Blogs.DAL.EntitiesConfiguration
@@ -7,19 +8,12 @@ namespace Blogs.DAL.EntitiesConfiguration
     {
         protected override void ConfigureProperties(EntityTypeBuilder<Record> builder)
         {
-            builder.Property(r => r.Title)
-                .HasMaxLength(200)
-                .IsRequired();
-
             builder.Property(r => r.Content)
                 .HasMaxLength(2500)
                 .IsRequired();
 
             builder.Property(r => r.PublishedDate)
                 .IsRequired();
-
-            builder.HasIndex(r => r.Title)
-                .IsUnique(false);
         }
 
         protected override void ConfigureForeignKey(EntityTypeBuilder<Record> builder)
@@ -27,6 +21,13 @@ namespace Blogs.DAL.EntitiesConfiguration
             builder.HasOne(o => o.Author)
                 .WithMany(o => o.Records)
                 .HasForeignKey(o => o.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired();
+
+            builder.HasOne(o => o.Theme)
+                .WithMany(o => o.Records)
+                .HasForeignKey(o => o.ThemeId)
+                .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
         }
     }

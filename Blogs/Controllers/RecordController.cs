@@ -24,11 +24,17 @@ namespace Blogs.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index(RecordFilterModel model)
+        public IActionResult Index(RecordCreateModel model, int? id)
         {
             try
             {
-                model.Records = _recordService.SearchRecords(model);
+                if (!id.HasValue)
+                {
+                    ViewBag.BadRequestMessage = "Theme Id is Null";
+                    return View("BadRequest");
+                }
+
+                _recordService.SearchRecords(model, id.Value);
 
                 return View(model);
             }
@@ -53,7 +59,7 @@ namespace Blogs.Controllers
             {
                 User user = await _userManager.GetUserAsync(User);
                 _recordService.CreateRecord(record, user.Id);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = record.RecordTheme.Id });
             }
             catch (Exception e)
             {

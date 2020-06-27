@@ -5,6 +5,6 @@ namespace Blogs.DAL.Repositories.Contracts
 {
     public interface IRecordRepository : IRepository<Record>
     {
-        IEnumerable<Record> GetAllWithAuthors();
+        IEnumerable<Record> GetAllWithAuthors(int id);
     }
 }

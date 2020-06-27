@@ -10,6 +10,7 @@ using Blogs.DAL;
 using AutoMapper;
 using Blogs.DAL.Entities;
 using Blogs.Services.Records;
+using Blogs.Services.Themes;
 
 namespace Blogs
 {
@@ -44,6 +45,7 @@ namespace Blogs
             services.AddSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>();
 
             services.AddSingleton<IRecordService, RecordService>();
+            services.AddSingleton<IThemeService, ThemeService>();
 
             Mapper.Initialize(c => c.AddProfile(new MappingProfile()));
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)

@@ -16,7 +16,7 @@ namespace Blogs.Services.Records
         public static IEnumerable<Record> BySearchKey(this IEnumerable<Record> records, string searchKey)
         {
             if (!string.IsNullOrWhiteSpace(searchKey))
-                return records.Where(r => r.Title.Contains(searchKey)|| r.Content.Contains(searchKey));
+                return records.Where(r => r.Content.Contains(searchKey));
             return records;
         }
 

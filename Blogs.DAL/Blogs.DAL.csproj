@@ -11,6 +11,10 @@
     <Compile Remove="Migrations\20200626193807_Init.Designer.cs" />
     <Compile Remove="Migrations\20200626194513_CreateRecordEntity.cs" />
     <Compile Remove="Migrations\20200626194513_CreateRecordEntity.Designer.cs" />
+    <Compile Remove="Migrations\20200627061407_CreatedThemeEntity.cs" />
+    <Compile Remove="Migrations\20200627061407_CreatedThemeEntity.Designer.cs" />
+    <Compile Remove="Migrations\20200627072018_CreatedThemeEntity.cs" />
+    <Compile Remove="Migrations\20200627072018_CreatedThemeEntity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

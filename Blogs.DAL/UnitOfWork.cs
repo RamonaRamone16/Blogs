@@ -11,11 +11,14 @@ namespace Blogs.DAL
         private bool disposed;
 
         public IRecordRepository Records { get; }
+        public IThemeRepository Themes { get; }
+
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Records = new RecordRepository(context);
+            Themes = new ThemeRepository(context);
         }
 
         public void Dispose()

@@ -10,6 +10,8 @@ namespace Blogs.DAL
         public readonly IEntityConfigurationContainer _entityConfigurationContainer;
 
         public DbSet<Record> Records { get; set; }
+        public DbSet<Theme> Themes { get; set; }
+
         public ApplicationDbContext(
             DbContextOptions options,
             IEntityConfigurationContainer entityConfigurationContainer) : base(options)
@@ -23,6 +25,7 @@ namespace Blogs.DAL
             base.OnModelCreating(builder);
 
             builder.Entity(_entityConfigurationContainer.RecordConfiguration.ProvideConfigurationAction());
+            builder.Entity(_entityConfigurationContainer.ThemeConfiguration.ProvideConfigurationAction());
         }
     }
 }

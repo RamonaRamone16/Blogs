@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace Blogs.Models
 {
-    public class RecordCreateModel
+    public class ThemeCreateModel
     {
-        [Required]
+        [Required(ErrorMessage = "Введите заголовок темы")]
+        public string Title { get; set; }
+
+        [Required(ErrorMessage = "Введите содержание темы")]
         [StringLength(2500, MinimumLength = 20, ErrorMessage = "Мин. количество символов - 20")]
         public string Content { get; set; }
-
-        public ThemeModel RecordTheme { get; set; }
-        public List<RecordModel> Records { get; set; }
-
-
-        public int? CurrentPage { get; set; }
-        public PagingModel PagingModel { get; set; }
     }
 }

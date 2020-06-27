@@ -8,5 +8,6 @@ namespace Blogs.DAL.EntitiesConfiguration.Contracts
     public interface IEntityConfigurationContainer
     {
         IEntityConfiguration<Record> RecordConfiguration { get; }
+        IEntityConfiguration<Theme> ThemeConfiguration { get; }
     }
 }

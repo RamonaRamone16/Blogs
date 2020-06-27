@@ -9,10 +9,12 @@ namespace Blogs.DAL.EntitiesConfiguration
     public class EntityConfigurationContainer : IEntityConfigurationContainer
     {
         public IEntityConfiguration<Record> RecordConfiguration { get; set; }
+        public IEntityConfiguration<Theme> ThemeConfiguration { get; set; }
 
         public EntityConfigurationContainer()
         {
             RecordConfiguration = new RecordConfiguration();
+            ThemeConfiguration = new ThemeConfiguration();
         }
 
     }

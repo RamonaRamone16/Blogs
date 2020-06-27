@@ -2,6 +2,7 @@
 using Blogs.DAL.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Blogs.DAL.Repositories
 {
@@ -12,9 +13,9 @@ namespace Blogs.DAL.Repositories
             entities = context.Records;
         }
 
-        public IEnumerable<Record> GetAllWithAuthors()
+        public IEnumerable<Record> GetAllWithAuthors(int id)
         {
-            return entities.Include(r => r.Author);
+            return entities.Include(r => r.Author).Where(r => r.Theme.Id == id);
         }
     }
 }
