@@ -8,7 +8,7 @@ namespace Blogs.Models
 {
     public class RecordCreateModel
     {
-        [Required]
+        [Required(ErrorMessage ="Введите содержание поста")]
         [StringLength(2500, MinimumLength = 20, ErrorMessage = "Мин. количество символов - 20")]
         public string Content { get; set; }
 

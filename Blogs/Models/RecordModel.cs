@@ -7,5 +7,7 @@
         public ThemeModel Theme { get; set; }
         public string Content { get; set; }
         public string PublishedDate { get; set; }
+
+        public int AuthorAnswersCount { get; set; }
     }
 }
