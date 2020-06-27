@@ -25,12 +25,14 @@ namespace Blogs.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(RecordFilterModel model)
         {
             try
             {
-                List<RecordModel> recordModels = _recordService.SearchRecords();
-                return View(recordModels);
+                model.Records = _recordService.SearchRecords(model);
+
+
+                return View(model);
             }
             catch (Exception e)
             {

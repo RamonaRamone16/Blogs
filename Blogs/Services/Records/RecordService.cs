@@ -19,11 +19,17 @@ namespace Blogs.Services.Records
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public List<RecordModel> SearchRecords()
+        public List<RecordModel> SearchRecords(RecordFilterModel model)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
-                IEnumerable<Record> records = unitOfWork.Records.GetAllWithAuthors();
+                IEnumerable<Record> records = unitOfWork.Records.GetAllWithAuthors()
+                    .ByAuthor(model.Author)
+                    .BySearchKey(model.SearchKey)
+                    .ByDateFrom(model.DateFrom)
+                    .ByDateTo(model.DateTo);
+
+
                 return Mapper.Map<List<RecordModel>>(records.ToList());
             }
         }
