@@ -23,8 +23,7 @@ namespace Blogs.Services.Themes
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
-                IEnumerable<Theme> themes = unitOfWork.Themes.GetAllWithAuthors();
-                themes.ToList().Reverse();
+                IEnumerable<Theme> themes = unitOfWork.Themes.GetAllWithAuthorsAndRecords();
                 return Mapper.Map<List<ThemeModel>>(themes.ToList());
             }
         }

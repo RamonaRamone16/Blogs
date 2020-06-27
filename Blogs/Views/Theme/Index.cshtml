@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Blogs.Models.ThemeModel>
+﻿@model List<Blogs.Models.ThemeModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,22 +11,22 @@
 </p>
 <hr />
 
-@foreach (var item in Model)
+@for(int i = Model.Count - 1; i>=0; i--)
 {
     <div class="text-center mt-3 mb-3">
         <div class="d-flex justify-content-between">
-            <p style="font-size: 15px" class="d-inline">@item.AuthorName</p>
-            <p style="font-size: 15px" class="d-inline">@item.PublishedDate</p>
+            <p style="font-size: 15px" class="d-inline">@Model[i].AuthorName</p>
+            <p style="font-size: 15px" class="d-inline">@Model[i].PublishedDate</p>
         </div>
         <h4>
-            <a asp-action="Index" asp-controller="Record" asp-route-id="@item.Id">
-                @item.Title
+            <a asp-action="Index" asp-controller="Record" asp-route-id="@Model[i].Id">
+                @Model[i].Title
             </a>
         </h4>
-        <p> @item.Content</p>
+        <p> @Model[i].Content</p>
         <p class="text-right" style="font-size: 16px">
             <img src="https://img.icons8.com/ultraviolet/40/000000/faq.png" style="height: 18px"/> 
-            @item.RecordsCount
+            @Model[i].RecordsCount
         </p>
     </div>
     <hr />

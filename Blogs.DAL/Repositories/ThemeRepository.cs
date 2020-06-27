@@ -19,10 +19,5 @@ namespace Blogs.DAL.Repositories
         {
             return entities.Include(t => t.Author).Include(t => t.Records).ThenInclude(r => r.Author);
         }
-
-        public IEnumerable<Theme> GetAllWithAuthors()
-        {
-            return entities.Include(t => t.Author);
-        }
     }
 }
