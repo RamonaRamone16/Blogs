@@ -13,9 +13,9 @@ namespace Blogs.DAL.Repositories
             entities = context.Records;
         }
 
-        public IEnumerable<Record> GetAllWithAuthors(int id)
+        public IEnumerable<Record> GetAllWithAuthors(int themeId)
         {
-            return entities.Include(r => r.Author).Where(r => r.Theme.Id == id);
+            return entities.Include(r => r.Author).Where(r => r.Theme.Id == themeId);
         }
     }
 }

@@ -19,35 +19,34 @@ namespace Blogs.Services.Records
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public void SearchRecords(RecordCreateModel model, int themeId)
-        {
-            using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
-            {
-                Theme theme = unitOfWork.Themes.GetAllWithAuthorsAndRecords().FirstOrDefault(t => t.Id == themeId);
-                model.RecordTheme = Mapper.Map<ThemeModel>(theme);
+        //public void SearchRecords(RecordCreateModel model, int themeId)
+        //{
+        //    using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+        //    {
+        //        Theme theme = unitOfWork.Themes.GetAllWithAuthorsAndRecords().FirstOrDefault(t => t.Id == themeId);
+        //        model.RecordTheme = Mapper.Map<ThemeModel>(theme);
 
-                int pageSize = 3;
-                int currentPage = model.CurrentPage.HasValue ? model.CurrentPage.Value : 1;
-                int pagesCount = theme.Records.ToList().Count;
+        //        int pageSize = 3;
+        //        int currentPage = model.CurrentPage.HasValue ? model.CurrentPage.Value : 1;
+        //        int pagesCount = theme.Records.ToList().Count;
 
-                model.PagingModel = new PagingModel(pagesCount, pageSize, currentPage);
-                model.CurrentPage = currentPage;
-                theme.Records = theme.Records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+        //        model.PagingModel = new PagingModel(pagesCount, pageSize, currentPage);
+        //        model.CurrentPage = currentPage;
+        //        theme.Records = theme.Records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 
-                model.Records = Mapper.Map<List<RecordModel>>(theme.Records.ToList());
-            }
-        }
+        //    }
+        //}
 
-        public void CreateRecord(RecordCreateModel recordCreateModel, int themeId)
-        {
-            using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
-            {
-                Record record = Mapper.Map<Record>(recordCreateModel);
-                record.AuthorId = themeId;
-                record.ThemeId = recordCreateModel.RecordTheme.Id;
-                unitOfWork.Records.Create(record);
-            }
-        }
+        //public void CreateRecord(RecordCreateModel recordCreateModel, int userId)
+        //{
+        //    using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+        //    {
+        //        Record record = Mapper.Map<Record>(recordCreateModel);
+        //        record.AuthorId = userId;
+        //        record.ThemeId = recordCreateModel.RecordTheme.Id;
+        //        unitOfWork.Records.Create(record);
+        //    }
+        //}
 
         public void LikeRecord(int recordId)
         {
@@ -56,6 +55,25 @@ namespace Blogs.Services.Records
                 Record record = unitOfWork.Records.GetById(recordId);
                 record.Likes++;
                 unitOfWork.Records.Update(record);
+            }
+        }
+
+        public List<RecordModel> SearchRecords(int themeId)
+        {
+            using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+            {
+                List<Record> records = unitOfWork.Records.GetAllWithAuthors(themeId).ToList();
+                return Mapper.Map<List<RecordModel>>(records);
+            }
+        }
+
+        public void CreateRecord(RecordModel recordModel, int userId)
+        {
+            using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+            {
+                Record record = Mapper.Map<Record>(recordModel);
+                record.AuthorId = userId;
+                unitOfWork.Records.Create(record);
             }
         }
     }

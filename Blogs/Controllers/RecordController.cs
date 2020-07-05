@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blogs.DAL.Entities;
 using Blogs.Models;
 using Blogs.Services.Records;
+using Blogs.Services.Themes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +15,23 @@ namespace Blogs.Controllers
     {
         private readonly IRecordService _recordService;
         private readonly UserManager<User> _userManager;
+        private readonly IThemeService _themeService;
 
-        public RecordController(IRecordService recordService, UserManager<User> userManager)
+        public RecordController(IRecordService recordService, UserManager<User> userManager,
+            IThemeService themeService)
         {
             if (recordService == null)
                 throw new ArgumentNullException(nameof(recordService));
             if (userManager == null)
                 throw new ArgumentNullException(nameof(userManager));
+            if (themeService == null)
+                throw new ArgumentNullException(nameof(themeService));
             _recordService = recordService;
             _userManager = userManager;
+            _themeService = themeService;
         }
 
-        public IActionResult Index(RecordCreateModel model, int? id)
+        public IActionResult Index(int? id)
         {
             try
             {
@@ -34,9 +41,9 @@ namespace Blogs.Controllers
                     return View("BadRequest");
                 }
 
-                _recordService.SearchRecords(model, id.Value);
+                ThemeModel theme = _themeService.GetTheme(id.Value);
 
-                return View(model);
+                return View(theme);
             }
             catch (Exception e)
             {
@@ -44,22 +51,31 @@ namespace Blogs.Controllers
             }
         }
 
+
         [HttpGet]
-        [Authorize]
-        public IActionResult Create()
+        public IActionResult GetAllRecords(int themeId)
         {
-            return View();
+            try
+            {
+                List<RecordModel> records = _recordService.SearchRecords(themeId);
+                return PartialView("_AllRecords", records);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateRecord(RecordCreateModel record)
+        public async Task<IActionResult> CreateNewRecord(RecordModel record)
         {
             try
             {
                 User user = await _userManager.GetUserAsync(User);
                 _recordService.CreateRecord(record, user.Id);
-                return RedirectToAction("Index", new { id = record.RecordTheme.Id });
+                List<RecordModel> records = _recordService.SearchRecords(record.ThemeId);
+                return PartialView("_AllRecords", records);
             }
             catch (Exception e)
             {
@@ -85,7 +101,8 @@ namespace Blogs.Controllers
                 }
 
                 _recordService.LikeRecord(recordId.Value);
-                return RedirectToAction("Index", new { id = themeId });
+                List<RecordModel> records = _recordService.SearchRecords(themeId.Value);
+                return PartialView("_AllRecords", records);
             }
             catch (Exception e)
             {

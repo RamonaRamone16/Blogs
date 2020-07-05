@@ -2,7 +2,7 @@
 @using Blogs.DAL.Entities
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-@model RecordCreateModel
+@model ThemeModel
 
 @{
     ViewData["Title"] = "Index";
@@ -10,87 +10,95 @@
 
 <div class="text-center mt-3 mb-3">
     <div class="d-flex justify-content-between">
-        <p style="font-size: 15px" class="d-inline">@Model.RecordTheme.AuthorName</p>
-        <p style="font-size: 15px" class="d-inline">@Model.RecordTheme.PublishedDate</p>
+        <p style="font-size: 15px" class="d-inline">@Model.AuthorName</p>
+        <p style="font-size: 15px" class="d-inline">@Model.PublishedDate</p>
     </div>
-    <h2>@Model.RecordTheme.Title</h2>
-    <p> @Model.RecordTheme.Content</p>
-    <p class="text-right" style="font-size: 16px"><img src="https://img.icons8.com/ultraviolet/40/000000/faq.png" style="height: 18px" /> @Model.RecordTheme.RecordsCount</p>
+    <h2>@Model.Title</h2>
+    <p> @Model.Content</p>
 </div>
 <hr />
+
+
+<div id="allRecords"></div>
+
+
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <h5>Create My Record</h5>
-    <div class="row mt-3 mb-3">
-        <div class="col-md-4">
-            <form asp-action="CreateRecord" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="RecordTheme.Id" type="hidden" value="@Model.RecordTheme.Id" />
-                <input asp-for="CurrentPage" type="hidden" value="@Model.CurrentPage" />
-                <div class="form-group">
-                    <label asp-for="Content" class="control-label"></label>
-                    <input asp-for="Content" class="form-control" />
-                    <span asp-validation-for="Content" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
+    <div>
+        <p style="font-size: 25px; font-weight:700">Добавить ответ</p>
+        <input type="text" id="newRecord" class="d-block" style="margin-top: 50px" />
+        <button onclick="createNewRecord(getAllRecords)" type="submit" class="btn btn-info" style="margin-top: 50px">Ответить</button>
     </div>
-    <hr />
-}
-
-<h5>All Records</h5>
-<hr />
-@foreach (var item in Model.Records)
-{
-    <div class="text-center mt-3 mb-3">
-        <div class="d-flex justify-content-between">
-            <p style="font-size: 15px" class="d-inline">@item.AuthorName</p>
-            <p style="font-size: 15px" class="d-inline">@item.PublishedDate</p>
-        </div>
-        <p> @item.Content</p>
-        <div class="d-flex justify-content-between">
-            <p style="font-size: 15px" class="d-inline">User answers count: @item.AuthorAnswersCount</p>
-            <form asp-action="Like" method="post" asp-controller="Record">
-                <input type="hidden" name="recordId" value="@item.Id" />
-                <input type="hidden" name="themeId" value="@Model.RecordTheme.Id" />
-                <input type="submit" value="Likes: @item.Likes" />
-            </form>
-        </div>
-    </div>
-    <hr />
 }
 
 
-<div class="text-xl-center">
-    @if (Model.PagingModel.HavePreviousPage)
-        @Html.ActionLink("<< Назад", "Index", "Record",
-            new RecordCreateModel
-            {
-                CurrentPage = Model.CurrentPage - 1
-            })
 
-    <div class="d-inline mr-3 ml-3">
-        @for (int i = 1; i <= Model.PagingModel.PagesCount; i++)
-        {
-            <b class="mr-2">
-                @Html.ActionLink($"{i}", "Index", "Record",
+    @section Scripts{
+        <script>
+            const getAllRecords = () => {
+                $('#allRecords').load('@Url.Action("GetAllRecords", "Record")?themeId=' + @Model.Id);
+            };
+
+            const createNewRecord = (callback) => {
+                console.log("addNewRequest method")
+                const content = $('#newRecord').val();
+                const themeId = @Model.Id;
+
+                $.ajax({
+                    url: '@Url.Action("CreateNewRecord", "Record")',
+                    type: "POST",
+                    data: {
+                        content,
+                        themeId
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        callback();
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            $(function() {
+                getAllRecords();
+            });
+
+        </script>
+    }
+
+
+
+
+
+        @*<div class="text-xl-center">
+            @if (Model.PagingModel.HavePreviousPage)
+                @Html.ActionLink("<< Назад", "Index", "Record",
                     new RecordCreateModel
                     {
-                        CurrentPage = i
+                        CurrentPage = Model.CurrentPage - 1
                     })
-            </b>
-        }
-    </div>
 
-    @if (Model.PagingModel.HaveNextPage)
-        @Html.ActionLink("Вперед >>", "Index", "Record",
-             new RecordCreateModel
-             {
-                 CurrentPage = Model.CurrentPage + 1
-             })
-</div>
+            <div class="d-inline mr-3 ml-3">
+                @for (int i = 1; i <= Model.PagingModel.PagesCount; i++)
+                {
+                    <b class="mr-2">
+                        @Html.ActionLink($"{i}", "Index", "Record",
+                            new RecordCreateModel
+                            {
+                                CurrentPage = i
+                            })
+                    </b>
+                }
+            </div>
+
+            @if (Model.PagingModel.HaveNextPage)
+                @Html.ActionLink("Вперед >>", "Index", "Record",
+                     new RecordCreateModel
+                     {
+                         CurrentPage = Model.CurrentPage + 1
+                     })
+        </div>*@
 

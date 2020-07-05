@@ -37,5 +37,14 @@ namespace Blogs.Services.Themes
                 unitOfWork.Themes.Create(theme);
             }
         }
+
+        public ThemeModel GetTheme(int id)
+        {
+            using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+            {
+                Theme themes = unitOfWork.Themes.GetById(id);
+                return Mapper.Map<ThemeModel>(themes);
+            }
+        }
     }
 }

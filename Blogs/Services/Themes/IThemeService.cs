@@ -8,5 +8,6 @@ namespace Blogs.Services.Themes
     {
         List<ThemeModel> SearchThemes();
         void CreateTheme(ThemeCreateModel theme, int userId);
+        ThemeModel GetTheme(int id);
     }
 }

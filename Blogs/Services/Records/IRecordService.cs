@@ -1,11 +1,14 @@
 ﻿using Blogs.Models;
+using System.Collections.Generic;
 
 namespace Blogs.Services.Records
 {
     public interface IRecordService
     {
-        void SearchRecords(RecordCreateModel model, int themeId);
-        void CreateRecord(RecordCreateModel record, int themeId);
+        //void SearchRecords(RecordCreateModel model, int themeId);
+        //void CreateRecord(RecordCreateModel record, int userId);
         void LikeRecord(int recordId);
+        List<RecordModel> SearchRecords(int themeId);
+        void CreateRecord(RecordModel record, int userId);
     }
 }

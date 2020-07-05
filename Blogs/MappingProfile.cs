@@ -13,7 +13,7 @@ namespace Blogs
         public MappingProfile()
         {
             RecordToRecordModelMap();
-            RecordCreateModelToRecordMap();
+            RecordModelToRecordMap();
             ThemeToThemeModelMap();
             ThemeCreateModelToThemeMap();
         }
@@ -25,9 +25,9 @@ namespace Blogs
                 .ForMember(to => to.PublishedDate, from => from.MapFrom(r => r.PublishedDate.ToString("D")))
                 .ForMember(to => to.AuthorAnswersCount, from => from.MapFrom(r => r.Author.Records.Count));
         }
-        public void RecordCreateModelToRecordMap()
+        public void RecordModelToRecordMap()
         {
-            CreateMap<RecordCreateModel, Record>()
+            CreateMap<RecordModel, Record>()
                 .ForMember(to => to.PublishedDate, from => from.MapFrom(r => DateTime.Now));
         }
 
