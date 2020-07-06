@@ -5,9 +5,8 @@
 }
 
 
-
 <h5>All Records</h5>
-<hr />
+<hr/>
 @foreach (var item in Model)
 {
     <div class="text-center mt-3 mb-3">
@@ -18,53 +17,50 @@
         <p> @item.Content</p>
         <div class="d-flex justify-content-between">
             <p style="font-size: 15px" class="d-inline">User answers count: @item.AuthorAnswersCount</p>
-            @*<form asp-action="Like" method="post" asp-controller="Record">
-            <input type="hidden" name="recordId" value="@item.Id" />
-            <input type="hidden" name="themeId" value="@item.ThemeId" />
-            <input type="submit" value="Likes: @item.Likes" />
-            </form>*@
-        <div class="d-inline">
-            <input type="hidden" value="@item.Id" id="recordId" />
-            <input type="hidden" value="@item.ThemeId" id="themeId" />
-            <button onclick="like(getAllRecords)" type="submit" class="btn btn-info">Likes: @item.Likes</button>
-        </div>
+
+            <div class="d-inline">
+                <button onclick="like(@item.ThemeId, @item.Id, getAllRecords)" type="submit" class="btn btn-info">Likes: @item.Likes</button>
+                
+                @* 3: Error in Item.Id (instead @item.Id) *@
+                @*<button onclick="like(@item.ThemeId, Item.Id, getAllRecords)" type="submit" class="btn btn-info">Likes: @item.Likes</button>*@
+            </div>
         </div>
     </div>
-    <hr />
+    <hr/>
 }
 
-@section Scripts{
-    <script>
-        const getAllRecords = () => {
-            const themeId = $('#themeId').val();
-            $('#allRecords').load('@Url.Action("GetAllRecords", "Record")?themeId=' + themeId);
-        };
 
-        const like = (callback) => {
-            console.log("like method")
-            const recordId = $('#recordId').val();
-            const themeId = $('#themeId').val();
+<script> 
+    // 1: dublicate method getAllRecords
+    // 2: section Scripts doesnt need in partial view
+    @*const getAllRecords = () => {
+        $('#allRecords').load('@Url.Action("GetAllRecords", "Record")?themeId=' + @Model.Id);
+    };*@
+    const like = (themeId, recordId, callback) => {
+        console.log("like method")
 
-            $.ajax({
-                url: '@Url.Action("Like", "Record")',
-                type: "POST",
-                data: {
-                    recordId,
-                    themeId
-                },
-                success: function(data) {
-                    console.log(data);
-                    callback();
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-
-        $(function() {
-            getAllRecords();
+        $.ajax({
+            url: '@Url.Action("Like", "Record")',
+            type: "POST",
+            data: {
+                themeId,
+                recordId
+            },
+            success: function(data) {
+                console.log(data);
+                callback();
+            },
+            error: function(error) {
+                console.log(error);
+            }
         });
+    }
 
-    </script>
-}
+</script>
+
+
+@*<form asp-action="Like" method="post" asp-controller="Record">
+    <input type="hidden" name="recordId" value="@item.Id" />
+    <input type="hidden" name="themeId" value="@item.ThemeId" />
+    <input type="submit" value="Likes: @item.Likes" />
+    </form>*@
