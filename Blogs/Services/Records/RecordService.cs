@@ -48,13 +48,14 @@ namespace Blogs.Services.Records
         //    }
         //}
 
-        public void LikeRecord(int recordId)
+        public int LikeRecord(int recordId)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {
                 Record record = unitOfWork.Records.GetById(recordId);
                 record.Likes++;
                 unitOfWork.Records.Update(record);
+                return record.Likes;
             }
         }
 

@@ -7,7 +7,7 @@ namespace Blogs.Services.Records
     {
         //void SearchRecords(RecordCreateModel model, int themeId);
         //void CreateRecord(RecordCreateModel record, int userId);
-        void LikeRecord(int recordId);
+        int LikeRecord(int recordId);
         List<RecordModel> SearchRecords(int themeId);
         void CreateRecord(RecordModel record, int userId);
     }

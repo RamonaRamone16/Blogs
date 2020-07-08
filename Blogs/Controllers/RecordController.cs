@@ -85,7 +85,7 @@ namespace Blogs.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Like(int? recordId, int? themeId)
+        public IActionResult Like(int? recordId)
         {
             try
             {
@@ -94,15 +94,9 @@ namespace Blogs.Controllers
                     ViewBag.BadRequestMessage = "Record Id is Null";
                     return View("BadRequest");
                 }
-                if (!themeId.HasValue)
-                {
-                    ViewBag.BadRequestMessage = "Theme Id is Null";
-                    return View("BadRequest");
-                }
 
-                _recordService.LikeRecord(recordId.Value);
-                List<RecordModel> records = _recordService.SearchRecords(themeId.Value);
-                return PartialView("_AllRecords", records);
+                int likes = _recordService.LikeRecord(recordId.Value);
+                return Ok(likes);
             }
             catch (Exception e)
             {

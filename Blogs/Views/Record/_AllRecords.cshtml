@@ -19,10 +19,8 @@
             <p style="font-size: 15px" class="d-inline">User answers count: @item.AuthorAnswersCount</p>
 
             <div class="d-inline">
-                <button onclick="like(@item.ThemeId, @item.Id, getAllRecords)" type="submit" class="btn btn-info">Likes: @item.Likes</button>
-                
-                @* 3: Error in Item.Id (instead @item.Id) *@
-                @*<button onclick="like(@item.ThemeId, Item.Id, getAllRecords)" type="submit" class="btn btn-info">Likes: @item.Likes</button>*@
+                <button onclick="like(@item.Id)" type="submit" class="btn btn-info">Like</button>
+                <p id="like-@item.Id" class="d-inline" style="padding-top: 10px">  @item.Likes</p>
             </div>
         </div>
     </div>
@@ -31,24 +29,17 @@
 
 
 <script> 
-    // 1: dublicate method getAllRecords
-    // 2: section Scripts doesnt need in partial view
-    @*const getAllRecords = () => {
-        $('#allRecords').load('@Url.Action("GetAllRecords", "Record")?themeId=' + @Model.Id);
-    };*@
-    const like = (themeId, recordId, callback) => {
+    const like = (recordId) => {
         console.log("like method")
 
         $.ajax({
             url: '@Url.Action("Like", "Record")',
             type: "POST",
             data: {
-                themeId,
                 recordId
             },
-            success: function(data) {
-                console.log(data);
-                callback();
+            success: function (data) {
+                $('#like-' + recordId).html(data);
             },
             error: function(error) {
                 console.log(error);
@@ -57,10 +48,3 @@
     }
 
 </script>
-
-
-@*<form asp-action="Like" method="post" asp-controller="Record">
-    <input type="hidden" name="recordId" value="@item.Id" />
-    <input type="hidden" name="themeId" value="@item.ThemeId" />
-    <input type="submit" value="Likes: @item.Likes" />
-    </form>*@
