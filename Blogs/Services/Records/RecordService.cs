@@ -59,6 +59,18 @@ namespace Blogs.Services.Records
             }
         }
 
+        public int DislikeRecord(int recordId)
+        {
+            using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+            {
+                Record record = unitOfWork.Records.GetById(recordId);
+                record.Dislikes++;
+                unitOfWork.Records.Update(record);
+                return record.Dislikes;
+            }
+        }
+
+
         public List<RecordModel> SearchRecords(int themeId)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())

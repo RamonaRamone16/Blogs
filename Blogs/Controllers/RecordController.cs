@@ -103,5 +103,26 @@ namespace Blogs.Controllers
                 return StatusCode(500, e);
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Dislike(int? recordId)
+        {
+            try
+            {
+                if (!recordId.HasValue)
+                {
+                    ViewBag.BadRequestMessage = "Record Id is Null";
+                    return View("BadRequest");
+                }
+
+                int dislikes = _recordService.DislikeRecord(recordId.Value);
+                return Ok(dislikes);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
     }
 }
