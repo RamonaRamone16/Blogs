@@ -84,7 +84,6 @@ namespace Blogs.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Like(int? recordId)
         {
             try
@@ -105,7 +104,6 @@ namespace Blogs.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Dislike(int? recordId)
         {
             try
