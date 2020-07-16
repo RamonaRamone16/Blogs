@@ -24,11 +24,11 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div>
-        <p style="font-size: 25px; font-weight: 700">Добавить ответ</p>
-        <input type="text" id="newRecord" class="d-block" style="margin-top: 50px"/>
-        <button onclick="createNewRecord(getAllRecords)" type="submit" class="btn btn-info" style="margin-top: 50px">Ответить</button>
-    </div>
+<div>
+    <p style="font-size: 25px; font-weight: 700">Добавить ответ</p>
+    <textarea id="newRecord" class="form-control"></textarea>
+    <button onclick="createNewRecord(getAllRecords)" type="submit" class="btn btn-info" style="margin-top: 50px">Ответить</button>
+</div>
 }
 
 
