@@ -7,7 +7,6 @@
         public int ThemeId { get; set; }
         public string Content { get; set; }
         public string PublishedDate { get; set; }
-
         public int AuthorAnswersCount { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }

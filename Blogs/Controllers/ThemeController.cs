@@ -25,19 +25,17 @@ namespace Blogs.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult GetAllThemes()
         {
             try
             {
-                List<ThemeModel> themes = _themeService.SearchThemes();
-
-                return View(themes);
+                List<ThemeModel> themes = _themeService.GetAllThemes();
+                return PartialView("_AllThemes", themes);
             }
             catch (Exception e)
             {
                 return StatusCode(500, e);
             }
-
         }
 
         [HttpGet]
@@ -55,13 +53,15 @@ namespace Blogs.Controllers
             {
                 User user = await _userManager.GetUserAsync(User);
                 _themeService.CreateTheme(theme, user.Id);
-                return RedirectToAction("Index");
+                List<ThemeModel> themes = _themeService.GetAllThemes();
+                return PartialView("_AllThemes", themes);
             }
             catch (Exception e)
             {
                 return StatusCode(500, e);
             }
         }
+
 
     }
 }

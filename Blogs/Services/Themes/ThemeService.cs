@@ -19,7 +19,7 @@ namespace Blogs.Services.Themes
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public List<ThemeModel> SearchThemes()
+        public List<ThemeModel> GetAllThemes()
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
             {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Blogs.Models.RecordModel>
+﻿@model List<RecordModel>
 
 @{
     ViewData["Title"] = "_AllRecords";
@@ -6,7 +6,7 @@
 
 
 <h5>All Records</h5>
-<hr/>
+<hr />
 @foreach (var item in Model)
 {
     <div class="text-center mt-3 mb-3">
@@ -19,17 +19,15 @@
             <p style="font-size: 15px" class="d-inline">User answers count: @item.AuthorAnswersCount</p>
 
             <div class="d-inline">
-                <button onclick="like(@item.Id)" type="submit" class="btn btn-light" ><img src="https://img.icons8.com/cotton/64/000000/facebook-like--v1.png" style="height: 20px"/></button>
+                <button onclick="like(@item.Id)" type="submit" class="btn btn-light"><img src="https://img.icons8.com/cotton/64/000000/facebook-like--v1.png" style="height: 20px" /></button>
                 <p id="like-@item.Id" class="d-inline" style="padding-top: 10px">  @item.Likes</p>
-                <button onclick="dislike(@item.Id)" type="submit" class="btn btn-light" ><img src="https://img.icons8.com/cotton/64/000000/thumbs-down--v2.png" style="height: 20px" /></button>
+                <button onclick="dislike(@item.Id)" type="submit" class="btn btn-light"><img src="https://img.icons8.com/cotton/64/000000/thumbs-down--v2.png" style="height: 20px" /></button>
                 <p id="dislike-@item.Id" class="d-inline" style="padding-top: 10px">  @item.Dislikes</p>
             </div>
         </div>
     </div>
-    <hr/>
+    <hr />
 }
-
-
 <script>
 
     const like = (recordId) => {
@@ -69,3 +67,51 @@
     }
 
 </script>
+
+@*<div class="text-xl-center">
+        @if (Model.PagingModel.HavePreviousPage)
+        {
+        <button onclick="getRecords(@Model.CurrentPage-1, @Model.ThemeId)" id="linkId" type="submit" class="btn btn-info" style="margin-top: 50px">Назад</button>
+        }
+
+        <div class="d-inline mr-3 ml-3">
+            @for (int i = 1; i <= Model.PagingModel.PagesCount; i++)
+            {
+                <b class="mr-2">
+                    @Html.ActionLink($"{i}", "Index", "Record",
+                        new RecordsModel
+                        {
+                            CurrentPage = i,
+                            ThemeId = Model.ThemeId
+                        })
+                </b>
+            }
+        </div>
+
+        @if (Model.PagingModel.HaveNextPage)
+        {
+             <button onclick="getRecords(@Model.CurrentPage+1, @Model.ThemeId)" type="submit" class="btn btn-info" style="margin-top: 50px">Вперед</button>
+        }
+
+    </div>*@
+
+
+
+@*const getRecords = (currentPage, themeId) => {
+        console.log("get records method")
+
+        $.ajax({
+            url: '@Url.Action("GetAllRecords", "Record")',
+            type: "GET",
+            data: {
+                currentPage,
+                themeId
+            },
+            dataType: 'JSON',
+            success: function (data) {
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }*@

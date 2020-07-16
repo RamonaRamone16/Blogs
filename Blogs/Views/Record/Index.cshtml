@@ -72,31 +72,3 @@
 
 
 
-@*<div class="text-xl-center">
-            @if (Model.PagingModel.HavePreviousPage)
-                @Html.ActionLink("<< Назад", "Index", "Record",
-                    new RecordCreateModel
-                    {
-                        CurrentPage = Model.CurrentPage - 1
-                    })
-
-            <div class="d-inline mr-3 ml-3">
-                @for (int i = 1; i <= Model.PagingModel.PagesCount; i++)
-                {
-                    <b class="mr-2">
-                        @Html.ActionLink($"{i}", "Index", "Record",
-                            new RecordCreateModel
-                            {
-                                CurrentPage = i
-                            })
-                    </b>
-                }
-            </div>
-
-            @if (Model.PagingModel.HaveNextPage)
-                @Html.ActionLink("Вперед >>", "Index", "Record",
-                     new RecordCreateModel
-                     {
-                         CurrentPage = Model.CurrentPage + 1
-                     })
-        </div>*@

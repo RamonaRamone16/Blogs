@@ -19,35 +19,6 @@ namespace Blogs.Services.Records
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        //public void SearchRecords(RecordCreateModel model, int themeId)
-        //{
-        //    using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
-        //    {
-        //        Theme theme = unitOfWork.Themes.GetAllWithAuthorsAndRecords().FirstOrDefault(t => t.Id == themeId);
-        //        model.RecordTheme = Mapper.Map<ThemeModel>(theme);
-
-        //        int pageSize = 3;
-        //        int currentPage = model.CurrentPage.HasValue ? model.CurrentPage.Value : 1;
-        //        int pagesCount = theme.Records.ToList().Count;
-
-        //        model.PagingModel = new PagingModel(pagesCount, pageSize, currentPage);
-        //        model.CurrentPage = currentPage;
-        //        theme.Records = theme.Records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-
-        //    }
-        //}
-
-        //public void CreateRecord(RecordCreateModel recordCreateModel, int userId)
-        //{
-        //    using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
-        //    {
-        //        Record record = Mapper.Map<Record>(recordCreateModel);
-        //        record.AuthorId = userId;
-        //        record.ThemeId = recordCreateModel.RecordTheme.Id;
-        //        unitOfWork.Records.Create(record);
-        //    }
-        //}
-
         public int LikeRecord(int recordId)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
@@ -89,5 +60,34 @@ namespace Blogs.Services.Records
                 unitOfWork.Records.Create(record);
             }
         }
+
+        //public void SearchRecords(RecordCreateModel model, int themeId)
+        //{
+        //    using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+        //    {
+        //        Theme theme = unitOfWork.Themes.GetAllWithAuthorsAndRecords().FirstOrDefault(t => t.Id == themeId);
+        //        model.RecordTheme = Mapper.Map<ThemeModel>(theme);
+
+        //        int pageSize = 3;
+        //        int currentPage = model.CurrentPage.HasValue ? model.CurrentPage.Value : 1;
+        //        int pagesCount = theme.Records.ToList().Count;
+
+        //        model.PagingModel = new PagingModel(pagesCount, pageSize, currentPage);
+        //        model.CurrentPage = currentPage;
+        //        theme.Records = theme.Records.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+        //    }
+        //}
+
+        //public void CreateRecord(RecordCreateModel recordCreateModel, int userId)
+        //{
+        //    using (UnitOfWork unitOfWork = _unitOfWorkFactory.Create())
+        //    {
+        //        Record record = Mapper.Map<Record>(recordCreateModel);
+        //        record.AuthorId = userId;
+        //        record.ThemeId = recordCreateModel.RecordTheme.Id;
+        //        unitOfWork.Records.Create(record);
+        //    }
+        //}
     }
 }

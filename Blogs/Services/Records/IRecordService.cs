@@ -5,11 +5,12 @@ namespace Blogs.Services.Records
 {
     public interface IRecordService
     {
-        //void SearchRecords(RecordCreateModel model, int themeId);
-        //void CreateRecord(RecordCreateModel record, int userId);
         int LikeRecord(int recordId);
         int DislikeRecord(int recordId);
         List<RecordModel> SearchRecords(int themeId);
         void CreateRecord(RecordModel record, int userId);
+
+        //void SearchRecords(RecordCreateModel model, int themeId);
+        //void CreateRecord(RecordCreateModel record, int userId);
     }
 }
